@@ -1,6 +1,7 @@
 version: "3.8"
 
 services:
+
   mysql:
     image: mysql:8
     container_name: mysql-db
@@ -11,8 +12,6 @@ services:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-    networks:
-      - app-network
 
   backend:
     build: ./MEDICAL_APPOINTMENT_SYSTEM_BACKEND
@@ -24,9 +23,7 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Mohit@005
     ports:
-      - "9096:9096"
-    networks:
-      - app-network
+      - "9096:8080"
 
   frontend:
     build: ./MEDICAL_APPOINTMENT_SYSTEM_FRONTEND
@@ -34,12 +31,7 @@ services:
     depends_on:
       - backend
     ports:
-      - "5173:80"
-    networks:
-      - app-network
-
-networks:
-  app-network:
+      - "5173:8080"
 
 volumes:
   mysql_data:
